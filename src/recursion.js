@@ -189,11 +189,33 @@ var powerOfTwo = function(n) {
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if (string.length === 1) {
+    return string;
+  } else {
+    return reverse(string.slice(1)) + string[0];
+  }
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  var cleanString = string.split(' ').join('').toLowerCase();
+
+  if (cleanString.length === 1) {
+    return true;
+  }
+
+  if (cleanString.length === 2) {
+    return string[0] === string[1];
+  }
+
+  if (cleanString.length > 2) {
+    if (cleanString[0] !== cleanString[cleanString.length - 1]) {
+      return false;
+    }
+    return palindrome(cleanString.slice(1, cleanString.length - 1));
+  }
 };
+
 
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
@@ -201,6 +223,42 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if (y === 0) {
+    return NaN;
+  }
+
+  if (x === y) {
+    return 0;
+  }
+
+  if (x < 0) {
+    if (y < 0) {
+      if (x > y) {
+        return x;
+      } else {
+        return modulo(x - y, y);
+      }
+    } else {
+      if (-x < y) {
+        return x;
+      } else {
+        return modulo(x + y, y)
+      }
+    }
+  } else {
+    if (x < 0) {
+      x = -x;
+    }
+    if (y < 0) {
+      y = -y
+    }
+    if (x < y) {
+      return x;
+    }
+    if (x > y) {
+      return modulo(x - y, y);
+    }
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or

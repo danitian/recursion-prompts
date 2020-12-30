@@ -142,9 +142,6 @@ return newRange;
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
-  //base: exp = 0;
-  //recursive: even: if exp % 2 === 0;
-
   if (exp === 0) {
     return 1;
   }
@@ -171,31 +168,23 @@ var exponent = function(base, exp) {
     var intermediate = exponent(base, -exp);
     return 1 / intermediate;
   }
-
 };
-
-console.log(exponent(2, 3))
-//exponent(2, 4)
-//1--
-//fraction = exponent(2, 2);
-//2---
-//exponent(2, 2)
-//fraction = exponent(2, 1);
-//3---
-//exponent(2, 1);
-//return 2
-//2---
-//fraction = 2
-//return 2*2=4
-//3--
-//fraction = 4*4 = 16
-
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 2 || n === 1) {
+    return true;
+  }
+
+  if (n > 2) {
+    var intermediate = n / 2;
+    return powerOfTwo(intermediate);
+  }
+
+  return false;
 };
 
 // 9. Write a function that reverses a string.

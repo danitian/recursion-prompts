@@ -79,8 +79,6 @@ var isEven = function(n) {
 
 };
 
-console.log(isEven(8))
-
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
@@ -103,6 +101,39 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+
+var rangeArr = [];
+
+var max = x;
+var min = y;
+
+if (x < y) {
+  max = y;
+  min = x;
+}
+
+if (max - min < 2) {
+  return rangeArr;
+}
+
+if (max - min === 2) {
+  rangeArr.push(min + 1);
+  return rangeArr;
+}
+
+if (max - min > 2) {
+  if (x > y) {
+    rangeArr.push(max - 1);
+    var newRange = rangeArr.concat(range(max - 1, min));
+  } else {
+    rangeArr.push(min + 1);
+    var newRange = rangeArr.concat(range(min + 1, max));
+  }
+
+}
+
+return newRange;
+
 };
 
 // 7. Compute the exponent of a number.
@@ -111,7 +142,54 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  //base: exp = 0;
+  //recursive: even: if exp % 2 === 0;
+
+  if (exp === 0) {
+    return 1;
+  }
+
+  if (exp === 1) {
+    return base;
+  }
+
+  if (exp === -1) {
+    return -base;
+  }
+
+  if (exp > 0 && exp % 2 === 0) {
+    var intermediate = exponent(base, exp / 2);
+    return intermediate * intermediate;
+  }
+
+  if (exp > 0 && exp % 2 === 1) {
+    var intermediate = exponent(base, exp - 1);
+    return intermediate * base;
+  }
+
+  if (exp < 0) {
+    var intermediate = exponent(base, -exp);
+    return 1 / intermediate;
+  }
+
 };
+
+console.log(exponent(2, 3))
+//exponent(2, 4)
+//1--
+//fraction = exponent(2, 2);
+//2---
+//exponent(2, 2)
+//fraction = exponent(2, 1);
+//3---
+//exponent(2, 1);
+//return 2
+//2---
+//fraction = 2
+//return 2*2=4
+//3--
+//fraction = 4*4 = 16
+
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
